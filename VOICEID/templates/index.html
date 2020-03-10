@@ -1,0 +1,252 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Voice Your ID</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{{url_for('static',filename='assets/css/main.css')}}" />
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header" class="alt">
+				<div class="inner">
+					<h1>Voice your ID</h1>
+				<i>	<p>" Your VOICE is your Password. "</p></i>
+				</div>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Banner -->
+					<section id="intro" class="main">
+						 <img src="./static/images/attd.jpg" height="250" width="250">
+						<h2>Voice & Location Based Attendance System</h2>
+						<p>This is the Demo Page for Text independent Speaker Recognition System.<br>
+							We have implemented a Attendance system that includes Geofencing and Text Independent Speaker recognition.</p>
+						<ul class="actions">
+							<li><a href="#" class="button big">Learn More</a></li>
+						</ul>
+					</section>
+
+				<!-- Items -->
+					<section class="main items">
+						<article class="item">
+							<header>
+								<a href="/AIpage/index.html"><img src="./static/images/voiceid.jpg" alt="" /></a>
+								<h2> Voice_ID Tool </h2>
+							</header>
+							<p id='tooli'>Press the record Button to use your Registered Voice ID to mark your attendance.
+							</p>
+							<ul class="actions">
+								<li><a id="tool" class="button"> Record </a></li>
+							</ul>
+						</article>
+						<article class="item">
+							<header>
+								<a href="#"><img src="./static/images/mic.jpeg" alt="" /></a>
+								<h2>Add New User</h2>
+							</header>
+							<p id="regedit">Register your Voice ID<br> Repeat the specified Phrase 3 times.</p>
+							<ul class="actions">
+								<li><a id="rec" class="button">Record</a></li>
+							</ul>
+						</article>
+						<article class="item">
+							<header>
+								<a href="#"><img src="./static/images/location.png" alt="" /></a>
+								<h2>Verify Location</h2>
+							</header>
+							<p>If the user is inside the office he/she will be markered inside and will be allowed to go further.If the user is not inside the office he/she will not be allowed to authenticate his/her voice.</p>
+							<ul class="actions">
+								<li><a href="/mapbasic" class="button">Locate</a></li>
+							</ul>
+						</article>
+						<article class="item">
+							<header>
+								<a href="#"><img src="./static/images/aboutus.png" alt="" /></a>
+								<h2>About US</h2>
+							</header>
+							<p>Our team name is Insane Coders. The members are Janhavi, Ayushi, Mahima, Girish, Mohnish and Oveshahmed.<br>We have created this website in last 3 days.</p>
+							<ul class="actions">
+								<li><a href="#" class="button">More</a></li>
+							</ul>
+						</article>
+					</section>
+
+				<!-- CTA -->
+					<section id="cta" class="main special">
+						<h2>Verify your location.</h2>
+						<p></p>
+						<ul class="actions">
+							<li><a href="#" class="button big">Get Started</a></li>
+						</ul>
+					</section>
+
+
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+						<p class="copyright">&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="./static/assets/js/jquery.min.js"></script>
+			<script src="./static/assets/js/skel.min.js"></script>
+			<script src="./static/assets/js/util.js"></script>
+			<script src="./static/assets/js/main.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+        $(function() {
+          $('a#tool').bind('click', function() {
+						record();
+						window.setTimeout(() => {
+							$.getJSON('/background_process_test',{},
+	                function(data) {
+						console.log("Identity is: "+ String(data));
+
+						$("p#tooli").html("Press the record Button to use your Registered Voice ID to mark your attendance.<br>Voice Recognised as: <strong>"+String(data).toUpperCase()+"</strong>");
+
+	            });
+						}, 11000);
+            return false;
+          });
+        });
+
+		$(function() {
+          $('a#rec').bind('click', function() {
+			password=window.prompt("This Option is only reserved for Admin. Provide Admin Password.","")
+			if(password=='insane')
+			{
+				$("a#rec").text("Recording");
+				var username=window.prompt("Enter your Username","")
+				change2()
+				$.getJSON('/background_process_test2',{
+				a:username,
+				b:1
+				},
+					function(data) {
+						$("p#regedit").html("User Added Sucessfully....<br>");
+
+				});
+				return false;
+			}
+			else
+				{
+					window.alert("Incorrect Password");
+					}
+          });
+        });
+
+		function change(){
+			$("a#tool").text("Recording");
+			$("p#tooli").html(" Read the following verse with clear voice:<br>I am the Bone of My Sword, Steel is My Body and Fire My Blood. \n I have created over a thousand blades. \nUnaware of loss nor aware of gain, withstood pain to create many weapons waiting for one to rival.\nI have no regrets, This is the only path.");
+			window.setTimeout(() => {
+				$("a#tool").text("Record");
+			}, 11000);
+		}
+
+		function change2(){
+			$("p#regedit").html(" Recording Sample <strong>1</strong>:<br>I am the Bone of My Sword, Steel is My Body and Fire My Blood. \n I have created over a thousand blades. \nUnaware of loss nor aware of gain, withstood pain to create many weapons waiting for one to rival.\nI have no regrets, This is the only path.");
+			console.log("y1");
+			messagesadd();
+			window.setTimeout(() => {
+				$("p#regedit").html(" Recording Sample <strong>2</strong>:<br>I am the Bone of My Sword, Steel is My Body and Fire My Blood. \n I have created over a thousand blades. \nUnaware of loss nor aware of gain, withstood pain to create many weapons waiting for one to rival.\nI have no regrets, This is the only path.");
+				messagesadd();
+			}, 11000);
+			window.setTimeout(() => {
+				$("p#regedit").html(" Recording Sample <strong>3</strong>:<br>I am the Bone of My Sword, Steel is My Body and Fire My Blood. \n I have created over a thousand blades. \nUnaware of loss nor aware of gain, withstood pain to create many weapons waiting for one to rival.\nI have no regrets, This is the only path.");
+				messagesadd();
+			}, 22000);
+			window.setTimeout(() => {
+				$("p#regedit").html("User Sucessfully Registered.<br><br>");
+				$("a#rec").html("Record");
+			}, 33000);
+			console.log("y2");
+
+		}
+
+</script>
+<script>
+
+
+	function record(){
+		var chunks=[];
+		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+      .then(function(mediastream){
+			  var media=new MediaRecorder(mediastream);
+			  media.start();
+			  console.log(media.state);
+			  window.setTimeout(() => {
+				media.stop();
+				console.log(media.state);
+				media.onstop=(ev)=>{
+				var blob=new Blob(chunks,{'type':'audio/wav;'});
+				chunks=[];
+				var aurl=window.URL.createObjectURL(blob);
+				console.log(aurl);
+				function sendData(blob){
+					fetch("/messages", {
+						method: "post",
+						body: blob
+						});
+				}
+				sendData(blob);
+			}
+			}, 10000);
+			media.ondataavailable=function(ev) {
+				chunks.push(ev.data);
+			}
+	  });
+	}
+
+
+	function messagesadd(){
+
+		var chunks=[];
+		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+			.then(function(mediastream){
+				var media=new MediaRecorder(mediastream);
+				media.start();
+				console.log(media.state);
+				window.setTimeout(() => {
+				media.stop();
+				console.log(media.state);
+				media.onstop=(ev)=>{
+				var blob=new Blob(chunks,{'type':'audio/wav;'});
+				chunks=[];
+				var aurl=window.URL.createObjectURL(blob);
+				console.log(aurl);
+				function sendData(blob){
+					fetch("/messagesadd", {
+						method: "post",
+						body: blob
+						});
+				}
+				sendData(blob);
+			}
+			}, 10000);
+			media.ondataavailable=function(ev) {
+				chunks.push(ev.data);
+			}
+		});
+
+	}
+
+
+
+
+
+
+</script>
+	</body>
+
+</html>
